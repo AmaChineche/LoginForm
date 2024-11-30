@@ -1,12 +1,21 @@
 import React from 'react'
 import './LoginRegister.css';
 import { FaUser } from "react-icons/fa";
+import { useState } from 'react';
 import { FaLock} from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 const LoginRegister = () => {
+    const [action, setAction]= useState("");
+    const registerLink=()=>{
+        setAction('active');
+    };
+    const loginLink=()=>{
+        setAction('active');
+    };
+
   return (
     <div>
-      <div className='wrapper'>
+      <div className={`wrapper ${action}`}>
       <div className="form-box login">
         <form action="">
             <h1>Login</h1>
@@ -29,7 +38,7 @@ const LoginRegister = () => {
             <button  type='submit'>
             Login   
             </button>
-            <div className="regidter-link">
+            <div className="register-link">
                 <p>Dont have an account?
                     <a href="#">Register</a>
                 </p>
@@ -38,15 +47,17 @@ const LoginRegister = () => {
          
         </form>
       </div>
-
-      <div className="form-box Register">
+            {/* REGISTRATION SECTION */}
+      <div className="form-box-Register">
         <form action="">
+
             <h1>Registration</h1>
             <div className="input-box">
                 <input type="text" 
                 placeholder='UserName' required/>
             <FaUser className='icon' />
             </div>
+
             <div className="input-box">
                 <input type="email"
                 placeholder='Email' required />
@@ -59,7 +70,7 @@ const LoginRegister = () => {
            <FaLock className='icon'  />
             </div>
 
-            <div className='remember-forget'>
+            <div className='remember-forgot'>
         <label > <input type="checkbox" />
         remember</label>
         <a href="#"> Forget Password</a>
@@ -67,9 +78,9 @@ const LoginRegister = () => {
             <button  type='submit'>
             Login   
             </button>
-            <div className="regidter-link">
-                <p>Dont have an account?
-                    <a href="#">Register</a>
+            <div className="register-link">
+                <p>Already have an account?
+                    <a href="#" onClick={loginLink}>Login</a>
                 </p>
 
             </div>
