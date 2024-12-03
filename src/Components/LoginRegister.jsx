@@ -6,40 +6,44 @@ import { useState } from 'react';
 import { FaLock} from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 const LoginRegister = () => {
-    // const [action, setAction]= useState(" ");
-    // const registerLink=()=>{
-    //     setAction('active');
-    // };
-    // const loginLink=()=>{
-    //     setAction('active');
-    // };
-//  ******Validation*********
-const initialValues = {username: "", email:"", password:""};
-const [formValues, setFormValues]= useState(initialValues)
+  
+const initialLoginValues = {username: "",password:""};
+const initialRegisterValues = {username: "", email:"", password:""};
+//form state for both login and register
+const [loginValues, setLoginValues]= useState(initialLoginValues)
+const [registerValues, setRegisterValues]= useState(initialRegisterValues)
+
  const [formErrors, setFormErrors]=useState({})
 const [isSubmit, setIsSubmit]=useState(false);
-//state to mange form switching (login or regiter)
+//state to manage form switching (login or register)
 const [isLogin , setIsLogin]= useState(true) //default is login form
  const handleChange=(e)=>{
    // console.log(e.target.value);
     const {name, value} = e.target;
-    setFormValues((prevFormValues)=>({...prevFormValues, [name]: value}));
-          //console.log(formValues);
-  };
-  useEffect(()=>{
-    console.log(formValues);
-  }, [formValues]);
-  const handleSubmit=(e)=>{
-    e.preventDefault()
-   setFormErrors(validate(formValues));
-   setIsSubmit(true)
-  };
-  useEffect(()=>{
-   // console.log(formErrors)
-    if(Object.keys(formErrors).length === 0 && isSubmit){
-        console.log(formValues)
-    }
-  },[formErrors]);
+    if(isLogin){
+        setLoginValues((prevLoginValues)=>({...prevLoginValues, [name]:value}));
+    }else {
+            setRegisterValues((prevRegisterValues) => ({ ...prevRegisterValues, [name]: value }));
+          }
+        };
+    
+
+ 
+        useEffect(() => {
+            console.log(isLogin ? loginValues : registerValues);
+          }, [loginValues, registerValues]);
+        
+          const handleSubmit = (e) => {
+            e.preventDefault();
+            setFormErrors(validate(isLogin ? loginValues : registerValues));
+            setIsSubmit(true);
+          };
+  
+          useEffect(() => {
+            if (Object.keys(formErrors).length === 0 && isSubmit) {
+              console.log(isLogin ? loginValues : registerValues); // Submit success (form is valid)
+            }
+          }, [formErrors, isSubmit, isLogin, loginValues, registerValues]);
   const validate=(values)=>{
     const errors={};
     const regex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -79,7 +83,7 @@ return (
                             <div className="input-box">
                                 <input type="text" 
                                 name="username"
-                                value={formValues.username}
+                                value={loginValues.username}
                                 onChange={handleChange}
                                 placeholder='UserName' />
                             <FaUser className='icon' />
@@ -89,7 +93,7 @@ return (
                             <div className="input-box">
                                 <input type="password"
                                 name="password"
-                                value={formValues.password}
+                                value={loginValues.password}
                                 onChange={handleChange}
                                 placeholder='Password'/>
                         <FaLock className='icon'  />
@@ -122,7 +126,7 @@ return (
                             <div className="input-box">
                                 <input type="text" 
                                 name='username'
-                                value={formValues.username}
+                                value={registerValues.username}
                                 onChange={handleChange}
                             placeholder='UserName' />
                             <FaUser className='icon' />
@@ -131,7 +135,7 @@ return (
                             <div className="input-box">
                                 <input type="email"
                                 name='email'
-                                value={formValues.email}
+                                value={registerValues.email}
                                 onChange={handleChange}
                                 placeholder='Email'  />
                         <MdEmail className='icon' />
@@ -140,7 +144,7 @@ return (
                             <div className="input-box">
                                 <input type="password"
                                 name='password'
-                                value={formValues.password}
+                                value={registerValues.password}
                                 onChange={handleChange}
                                 placeholder='Password' />
                         <FaLock className='icon'  />
