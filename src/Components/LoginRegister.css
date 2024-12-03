@@ -9,6 +9,7 @@
     align-items: center;
     /* overflow: hidden; */
     transition: height .2s ease;
+   
 }
 .wrapper.active{
     height: 520px;
@@ -25,7 +26,7 @@
 .wrapper .form-box.login {
     transition: translate .18s ease;
     translate: 0; 
-    border: 2px solid red;
+    
 }
 .wrapper .form-box-Register{
     position: absolute;
@@ -37,19 +38,25 @@
     /* translate:.18s ease; */
     translate:0;
 }
+.login-link{
+    display: flex;
+    gap: 2px;
+}
 
                     /* Active  */
 
 /* registration */
                     /* Active  */
-/* .wrapper.active .form-box-Register{
-    transition: 
-    translate .18s ease;
-    translate:.18s ease;
+ .wrapper.active .form-box-Register{
+    transition:translate .18s ease;
     translate:0;
-} */
+} 
 
-
+.successMessage{
+    color: rgb(91, 245, 91);
+    font: bold;
+    
+}
 form h1{
     font-size: 36px;
     text-align: center;
@@ -117,7 +124,14 @@ form button{
     font-weight: 700;
 
 }
+.error{
+    color: red;
+    margin-bottom: 10px;
+    
+}
 form .register-link{
+    display: flex;
+    gap: 3px;
     font-size: 14.5px;
     text-align: center;
     margin: 20px 0 15px;
